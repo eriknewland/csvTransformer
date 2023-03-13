@@ -51,14 +51,16 @@ This library was born out of the need to modify specific column cells within lar
 1. refactor to improve DRY coding principles
 
 ## Usage
->npm i csvTransformer
+```
+npm i csvtransformers
+```
 
 ```
-import {csvTransformer} from 'csvTransformer'
+import {csvtransformer} from 'csvtransformers'
 ```
 or
 ```
-const {csvTransformer} = require('csvTransformer')
+const {csvTransformer} = require('csvtransformers')
 ```
 
 2. Install python (python.org)
