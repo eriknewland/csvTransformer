@@ -10,7 +10,7 @@ export const csvTransformer = {
     newCol1?: string,
     newCol2?: string,
   ): void => {
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     idCol = idCol || 'id';
     targetCol = targetCol || 'recommend';
     newCol1 = newCol1 || 'recommend_true';
@@ -50,7 +50,7 @@ df_agg.to_csv('${outputFile}')
       .catch((err) => console.log(err));
   },
   isoToUnix: (inputFile: string, outputFile?: string, targetCol?: string): void => {
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     targetCol = targetCol || 'date';
     let i = 0;
     setInterval(() => {
@@ -85,7 +85,7 @@ df.to_csv('${outputFile}', single_file=True, index=False)
       .catch((err) => console.log(err));
   },
   unixToISO: (inputFile: string, indexCol: string, outputFile?: string, targetCol?: string): void => {
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     targetCol = targetCol || 'date';
     let i = 0;
     setInterval(() => {
@@ -121,7 +121,7 @@ df.to_csv('${outputFile}', single_file=True, index=False)
       .catch((err) => console.log(err));
   },
   binaryToBoolean: (inputFile: string, targetCol: string, outputFile?: string): void => {
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     let i = 0;
     setInterval(function () {
       process.stdout.clearLine(0);
@@ -153,7 +153,7 @@ df.to_csv('${outputFile}', single_file=True, index=False)
       .catch((err) => console.error(err));
   },
   booleanToBinary: (inputFile: string, targetCol: string, outputFile?: string): void => {
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     let i = 0;
     setInterval(function () {
       process.stdout.clearLine(0);
@@ -205,7 +205,7 @@ df.to_csv('${outputFile}', single_file=True, index=False)
       .catch((err) => console.error(err));
   },
   toLower: (inputFile: string, targetCol: string, outputFile?: string): void => {
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     let i = 0;
     setInterval(function () {
       process.stdout.clearLine(0);
@@ -240,7 +240,7 @@ df.to_csv('${outputFile}', single_file=True, index=False)
   },
   merge: (inputFolder: string, targetCol: string, outputFile?: string): void => {
     inputFolder = inputFolder || 'files/*.csv';
-    outputFile = outputFile || 'csvTransformer_output.csv';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     let i = 0;
     setInterval(function () {
       process.stdout.clearLine(0);
@@ -275,7 +275,13 @@ merged_df.to_csv('${outputFile}', single_file=True)
       })
       .catch((err) => console.error(err));
   },
-  aggregatorInt: (): void => {
+  aggregatorInt: (inputFile: string, idCol:string, targetCol: string, newCol1?: string, newCol2?: string, newCol3?: string, newCol4?: string, newCol5?: string, outputFile?:string): void => {
+    newCol1 = newCol1 || 'rating1'
+    newCol2 = newCol1 || 'rating2'
+    newCol3 = newCol1 || 'rating3'
+    newCol4 = newCol1 || 'rating4'
+    newCol5 = newCol1 || 'rating5'
+    outputFile = outputFile || 'csvtransformers_output.csv'
     let i = 0;
     setInterval(function () {
       process.stdout.clearLine(0);
@@ -296,10 +302,10 @@ df = pd.read_csv('input.csv')
 df_agg = df.groupby('id')['rating'].value_counts().unstack().fillna(0).round(0).astype(int)
 
 #write the count of ratings 1-5 to 5 new columns
-df_agg.rename(columns={1:'rating1', 2:'rating2', 3:'rating3', 4:'rating4', 5:'rating5'}, inplace=True)
+df_agg.rename(columns={1:'${newCol1}', 2:'${newCol2}', 3:'${newCol3}', 4:'${newCol4}, 5:'${newCol5}'}, inplace=True)
 
 #output the file
-df_agg.to_csv('output.csv')
+df_agg.to_csv('${outputFile}')
 `;
 
     PythonShell.runString(script, {})
@@ -315,16 +321,17 @@ df_agg.to_csv('output.csv')
   generator: async (
     outputFile: string,
     headers: string,
+    size: number,
     ...valueCols: ((...args: any[]) => unknown)[]
   ): Promise<void> => {
-    const writeStream = fs.createWriteStream('input.csv');
+    const writeStream = fs.createWriteStream(`${outputFile}`);
     writeStream.write(`${headers}\n`);
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= size; i++) {
       const overWatermark = writeStream.write(`${valueCols.map((valueCol) => valueCol()).join(',')}\n`);
 
       if (!overWatermark) {
         await new Promise((resolve) => writeStream.once('drain', resolve)).then(() => {
-          fs.stat('input.csv', (err: any, stats: any) => {
+          fs.stat(`${outputFile}`, (err: any, stats: any) => {
             if (err) {
               console.error(err);
             } else {
@@ -336,7 +343,7 @@ df_agg.to_csv('output.csv')
     }
 
     writeStream.on('finish', () => {
-      fs.stat('input.csv', (err: any, stats: any) => {
+      fs.stat(`${outputFile}`, (err: any, stats: any) => {
         if (err) {
           console.error(err);
         } else {
