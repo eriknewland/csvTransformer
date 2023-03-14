@@ -88,12 +88,12 @@ Creates an aggregation of boolean values for a given id and outputs the tally to
 ```javascript
 .aggregatorBool(inputFile, outputFile, idCol, targetCol, newCol1, newCol2)
 ```
-**inputFile: string, required**
-outputFile defaults to 'csvtransformers_output.csv'
-idCol: string, defaults to 'id'
-targetCol: string, defaults to 'recommend'
-newCol1: string, defaults to recommend_true
-newCol2: string, defaults to recommend_false
+**inputFile: string, required**\\
+outputFile defaults to 'csvtransformers_output.csv'\\
+idCol: string, defaults to 'id'\\
+targetCol: string, defaults to 'recommend'\\
+newCol1: string, defaults to recommend_true\\
+newCol2: string, defaults to recommend_false\\
 ```javascript
 // simplest example using minimum required input
 csvtransformers.aggregatorBool('input.csv')
@@ -106,15 +106,15 @@ Creates an aggregation of integer values for a given id and outputs the tally to
 ```javascript
 .aggregatorInt(inputFile, outputFile, targetCol,)
 ```
-**inputFile: string, required**
-**idCol: string, required**
-targetCol: string, defaults to 'recommend'
-newCol1: string, defaults to rating1
-newCol2: string, defaults to rating2
-newCol3: string, defaults to rating3
-newCol4: string, defaults to rating4
-newCol5: string, defaults to rating5
-outputFile defaults to 'csvtransformers_output.csv'
+**inputFile: string, required**\\
+**idCol: string, required**\\
+targetCol: string, defaults to 'recommend'\\
+newCol1: string, defaults to rating1\\
+newCol2: string, defaults to rating2\\
+newCol3: string, defaults to rating3\\
+newCol4: string, defaults to rating4\\
+newCol5: string, defaults to rating5\\
+outputFile defaults to 'csvtransformers_output.csv'\\
 ```javascript
 // simplest example using minimum required input
 csvtransformers.aggregatorInt(Coming soon...)
@@ -123,13 +123,13 @@ csvtransformers.aggregatorInt(Coming soon...)
 ```
 
 #### .binaryToBoolean()
-convert a binary value to boolean (0=false, 1=true)
+convert a binary value to boolean (0=false, 1=true)\\
 ```javascript
 .binaryToBoolean(inputFile, targetCol, outputFile)
 ```
-**inputFile: string, required**
-**targetCol: string, required**
-outputFile defaults to 'csvtransformers_output.csv'
+**inputFile: string, required**\\
+**targetCol: string, required**\\
+outputFile defaults to 'csvtransformers_output.csv'\\
 ```javascript
 // simplest example using minimum required input
 csvtransformers.binaryToBoolean(Coming soon...)
@@ -138,13 +138,13 @@ csvtransformers.binaryToBoolean(Coming soon...)
 ```
 
 #### .booleanToBinary()
-convert a boolean value to binary (false=0, true=1)
+convert a boolean value to binary (false=0, true=1)\\
 ```javascript
 .booleanToBinary(inputFile, targetCol, outputFile)
 ```
-**inputFile: string, required**
-**targetCol: string, required**
-outputFile defaults to 'csvtransformers_output.csv'
+**inputFile: string, required**\\
+**targetCol: string, required**\\
+outputFile defaults to 'csvtransformers_output.csv'\\
 ```javascript
 // simplest example using minimum required input
 csvtransformers.booleanToBinary(Coming soon...)
@@ -153,11 +153,11 @@ csvtransformers.booleanToBinary(Coming soon...)
 ```
 
 #### .custom()
-Run your own python script
+Run your own python script\\
 ```javascript
 .custom(customScript)
 ```
-**customScript: string, required**
+**customScript: string, required**\\
 ```javascript
 // `` are required for .custom() scripts
 const script = `
@@ -176,14 +176,14 @@ csvtransformers.custom(script)
 ```
 
 #### .generator()
-Generate a new csv file.
+Generate a new csv file.\\
 ```javascript
 .generator(outputFile, headers, size, ...valueCols)
 ```
-**outputFile: (string) required**
-**headers: (string) required**
-**size: (number) required**
-**valueCols: (function) required**
+**outputFile: (string) required**\\
+**headers: (string) required**\\
+**size: (number) required**\\
+**valueCols: (function) required**\\
 ```javascript
 // 3 column csv file creation
 function nameGen() {
@@ -211,13 +211,13 @@ csvtransformers.generator('output.csv', 'id,name,birthday\n', 1e8, nameGen, birt
 
 
 #### .isoToUnix()
-Change the datetime value of a column from ISO to UNIX
+Change the datetime value of a column from ISO to UNIX\\
 ```javascript
 .isoToUnix(inputFile, outputFile, targetCol)
 ```
-**inputFile: string, required**
-outputFile: string, defaults to 'csvtransformers_output.csv'
-targetCol: string, defaults to 'date'
+**inputFile: string, required**\\
+outputFile: string, defaults to 'csvtransformers_output.csv'\\
+targetCol: string, defaults to 'date'\\
 ```javascript
 //simplest example
 csvtransformers.isoToUnix('input.csv')
@@ -226,39 +226,39 @@ csvtransformers.isoToUnix('input.csv', undefined, 'datetime')
 ```
 
 #### .merge()
-Merge the rows of two files on a common column value
+Merge the rows of two files on a common column value\\
 ```javascript
 .merge(inputFile, targetCol, outputFile)
 ```
-**inputFile: string, required**
-**targetCol: string, required**
-outputFile: string, defaults to 'csvtransformers_output.csv'
+**inputFile: string, required**\\
+**targetCol: string, required**\\
+outputFile: string, defaults to 'csvtransformers_output.csv'\\
 
 ```javascript
 csvtransformers.merge(Coming Soon...)
 ```
 
 #### .toLower()
-convers string value to lowercase
+convers string value to lowercase\\
 ```javascript
 .toLower(inputFile, targetCol, outputFile)
 ```
-**inputFile: string, required**
-**targetCol: string, required**
-outputFile: string, defaults to 'csvtransformers_output.csv'
+**inputFile: string, required**\\
+**targetCol: string, required**\\
+outputFile: string, defaults to 'csvtransformers_output.csv'\\
 ```javascript
 csvtransformers.toLower(Coming Soon...)
 ```
 
 #### .unixToISO()
-Change the datetime value of a column from UNIX to ISO
+Change the datetime value of a column from UNIX to ISO\\
 ```javascript
 .unixToISO(inputFile, indexCol, outputFile, targetCol)
 ```
-**inputFile: string, required**
-**indexCol: string, required**
-outputFile: string, defaults to 'csvtransformers_output.csv'
-targetCol: string, defaults to 'date'
+**inputFile: string, required**\\
+**indexCol: string, required**\\
+outputFile: string, defaults to 'csvtransformers_output.csv'\\
+targetCol: string, defaults to 'date'\\
 ```javascript
 //simplest example
 csvtransformers.unixToISO('input.csv', 'user_id')
