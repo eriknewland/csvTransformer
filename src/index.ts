@@ -275,13 +275,23 @@ merged_df.to_csv('${outputFile}', single_file=True)
       })
       .catch((err) => console.error(err));
   },
-  aggregatorInt: (inputFile: string, idCol:string, targetCol: string, newCol1?: string, newCol2?: string, newCol3?: string, newCol4?: string, newCol5?: string, outputFile?:string): void => {
-    newCol1 = newCol1 || 'rating1'
-    newCol2 = newCol1 || 'rating2'
-    newCol3 = newCol1 || 'rating3'
-    newCol4 = newCol1 || 'rating4'
-    newCol5 = newCol1 || 'rating5'
-    outputFile = outputFile || 'csvtransformers_output.csv'
+  aggregatorInt: (
+    inputFile: string,
+    idCol: string,
+    targetCol: string,
+    newCol1?: string,
+    newCol2?: string,
+    newCol3?: string,
+    newCol4?: string,
+    newCol5?: string,
+    outputFile?: string,
+  ): void => {
+    newCol1 = newCol1 || 'rating1';
+    newCol2 = newCol1 || 'rating2';
+    newCol3 = newCol1 || 'rating3';
+    newCol4 = newCol1 || 'rating4';
+    newCol5 = newCol1 || 'rating5';
+    outputFile = outputFile || 'csvtransformers_output.csv';
     let i = 0;
     setInterval(function () {
       process.stdout.clearLine(0);
