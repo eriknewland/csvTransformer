@@ -239,6 +239,7 @@ csvtransformers.merge(Coming Soon...)
 ```
 
 #### .toLower()
+convers string value to lowercase
 ```javascript
 .toLower(inputFile, targetCol, outputFile)
 ```
